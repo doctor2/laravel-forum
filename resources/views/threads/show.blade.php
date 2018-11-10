@@ -12,10 +12,12 @@
                 </div>
             </div>
 
-            @foreach ($thread->replies as $reply)
+            @foreach ($replies as $reply)
                 @include('threads._reply')
             @endforeach
 
+            {{$replies->links()}}
+            
             @if (auth()->check())
                 <div class="row justify-content-center">
                     <div class="col-md-8">
