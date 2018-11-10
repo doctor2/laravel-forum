@@ -1,0 +1,25 @@
+php artisan make:model Thread -mr
+
+mysql -uroot -p
+
+create database forum;
+
+php artisan make:model Reply -mc
+
+vendor/bin/phpunit
+
+php artisan make:authphp artisan make:auth
+
+php artisan make:test ReplyTest --unit
+
+php artisan make:test ParticipateInForum
+
+php artisan make:test CreateThreadsTest
+
+php artisan make:model Channel -m
+
+после добавляния функций оберток в файл /tests/utilities/functions.php
+composer dump-autoload
+@section('name')
+ some content
+@show
