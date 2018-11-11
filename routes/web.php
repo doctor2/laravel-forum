@@ -23,10 +23,12 @@ Route::get('/threads/{channel}', 'ThreadsController@index');
 
 Route::post('/threads', 'ThreadsController@store');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
-// Route::resource('threads','T/hreadsController');
+// Route::resource('threads','ThreadsController');
 
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/replies/{reply}/favorites', 'FavoritesController@store');

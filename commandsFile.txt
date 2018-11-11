@@ -18,6 +18,12 @@ php artisan make:test CreateThreadsTest
 
 php artisan make:model Channel -m
 
+php artisan make:controller FavoritesController
+
+php artisan make:migration create_favorites_table --create=favorites
+
+php artisan make:model Favorite
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
