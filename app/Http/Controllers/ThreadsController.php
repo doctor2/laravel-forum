@@ -54,6 +54,13 @@ class ThreadsController extends Controller
         }
 
         $threads = $threads->get();
+
+        if(request()->wantsJson())
+        {
+            return $threads;
+        }
+
+        // dd($threads->toSql());
         
         return view('threads.index', compact('threads'));
     }

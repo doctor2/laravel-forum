@@ -51,8 +51,10 @@ body{
                             <ul class="dropdown-menu">
                                 <li><a href="/threads/">All threads</a></li>
                                 @if (auth()->check())
-                                    <li><a href="/threads/?by={{auth()->user()->name}}">My thread</a></li>                                                </ul>
+                                    <li><a href="/threads/?by={{auth()->user()->name}}">My thread</a></li>
                                 @endif
+                                <li><a href="/threads?popular=1">Popular Threads</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a href="/threads/create">New Thread</a>
