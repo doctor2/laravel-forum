@@ -23,5 +23,7 @@ class FavoritesController extends Controller
         //     'favorited_type' => get_class($reply)
         // ]);
         $reply->favorite();
+
+        return back();
     }
 }
