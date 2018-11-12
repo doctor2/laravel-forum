@@ -26,6 +26,10 @@ php artisan make:model Favorite
 
 composer  require barryvdh/laravel-debugbar --dev
 
+php artisan make:test ProfilesTest
+
+php artisan make:controller ProfilesController
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
