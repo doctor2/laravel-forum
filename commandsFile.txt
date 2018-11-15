@@ -32,6 +32,10 @@ php artisan make:controller ProfilesController
 
 php artisan make:policy ThreadPolicy --model=Thread
 
+php artisan make:test ActivityTest --unit
+
+php artisan make:model Activity -m
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
