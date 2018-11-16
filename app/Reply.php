@@ -27,4 +27,9 @@ class Reply extends Model
     //     // return $this->favorites()->where('user_id', auth()->id())->exists();
     //     return !!$this->favorites->where('user_id', auth()->id())->count();
     // }
+
+    public function path()
+    {
+        return $this->thread->path();
+    }
 }
