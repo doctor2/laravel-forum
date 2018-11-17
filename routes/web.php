@@ -28,6 +28,7 @@ Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy');
 // Route::resource('threads','ThreadsController');
 
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
+Route::delete('/replies/{reply}', 'RepliesController@destroy');
 
 Auth::routes();
 
