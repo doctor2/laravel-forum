@@ -29,6 +29,7 @@ body{
 .flex{
     flex:1;
 }
+[v-cloak]{display: none}
 </style>
 <body >
     <div id="app">
