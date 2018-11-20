@@ -1,3 +1,4 @@
+<?/*?>
 <reply :attributes="{{$reply}}" inline-template v-cloak>
     <div id="reply-{{$reply->id}}">
         <div  class="card-header">
@@ -6,7 +7,9 @@
                     <a href="{{ route('profile', $reply->owner) }}">{{$reply->owner->name }}</a> said {{$reply->created_at->diffForHumans()}}
                 </h5>
                 <div>
-                    <favorite :reply="{{$reply}}"></favorite>
+                    @if (Auth::check())
+                    <favorite :reply="{{$reply}}"></favorite>                        
+                    @endif
                     {{-- <form method="POST" action="/replies/{{$reply->id}}/favorites">
                         @csrf
                     <button type="submit" class="btn btn-default " {{ $reply->isFavorited() ? 'disabled' : ''}}>
@@ -43,3 +46,4 @@
         @endcan
     </div>
 </reply>
+<?*/?>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<thread-view inline-template :initial-replies-count="{{$thread->replies_count}}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -28,11 +29,13 @@
                 </div>
             </div>
 
-            @foreach ($replies as $reply)
+        <replies :data="{{$thread->replies}}" @removed="repliesCount--"></replies>
+            {{-- @foreach ($replies as $reply)
                 @include('threads._reply')
+                <br>
             @endforeach
 
-            {{$replies->links()}}
+            {{$replies->links()}} --}}
             
             @if (auth()->check())
                 <div class="row justify-content-center">
@@ -58,7 +61,7 @@
                     <p>
                         This thread was published {{ $thread->created_at->diffForHumans() }} by
                         <a href="{{route('profile', $thread->creator)}}">{{ $thread->creator->name }}</a>, and currently
-                        has {{$thread->replies_count}} {{ str_plural('comment', $thread->replies_count) }}
+                        has <span v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}
                         .
                     </p>
         
@@ -78,6 +81,5 @@
 
   
 </div>
-
-
+</thread-view>
 @endsection
