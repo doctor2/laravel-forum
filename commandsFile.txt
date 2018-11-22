@@ -38,6 +38,8 @@ php artisan make:model Activity -m
 
 php artisan make:policy ReplyPolicy
 
+npm install moment --save
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
