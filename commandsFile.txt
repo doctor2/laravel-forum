@@ -40,8 +40,17 @@ php artisan make:policy ReplyPolicy
 
 npm install moment --save
 
+php artisan make:model ThreadSubscription -m
+
+php artisan make:test SubscribeToThreadsTest
+
+php artisan make:controller ThreadSubscriptionsController
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
  some content
 @show
+
+Подобная ошибка Illuminate\Database\Eloquent\MassAssignmentException: Add [user_id] to fillable property to allow mass assignment on [App\ThreadSubscription]
+может значать что нужно добавить поле protected $guarded = []; в модель
