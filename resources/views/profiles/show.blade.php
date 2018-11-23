@@ -21,7 +21,7 @@
                         @endforeach
                     @empty
                         <p>There is no activity for this user yet.</p>
-                    @endforeach
+                    @endforelse
                     {{-- {{$threads->links()}} --}}
         </div>
     </div>  
