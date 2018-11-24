@@ -46,6 +46,14 @@ php artisan make:test SubscribeToThreadsTest
 
 php artisan make:controller ThreadSubscriptionsController
 
+php artisan notifications:table
+
+php artisan make:notification ThreadWasUpdated
+
+php artisan make:test NotificationsTest
+
+php artisan make:controller UserNotificationsController
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
