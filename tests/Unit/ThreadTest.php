@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 
 class ThreadTest extends TestCase
 {
@@ -105,5 +106,21 @@ class ThreadTest extends TestCase
             $thread->subscribe();
 
             $this->assertTrue($thread->isSubscribedTo);
+        }
+
+        /** @test */
+        function a_thread_notifies_all_registered_subscribers_when_a_reply_is_added()
+        {
+            Notification::fake();
+
+            $this->signIn()
+                ->thread
+                ->subscribe()
+                ->addReply([
+                    'user_id' => 999,
+                    'body' => 'Foobar',
+                ]);
+
+            Notification::assertSentTo(auth()->user(), \App\Notifications\ThreadWasUpdated::class);
         }
 }

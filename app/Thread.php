@@ -60,11 +60,19 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
 
+        $this->notifySubscribers($reply);
+
+        return $reply;
+    }
+
+    public function notifySubscribers($reply)
+    {
         $this->subscriptions
-            ->filter(function($sub) use($reply){
-                return $sub->user_id !=$reply->user_id;
-            })
-            ->each->notify($reply);
+        ->where('user_id', '!=', $reply->user_id)
+        // ->filter(function($sub) use($reply){
+        //     return $sub->user_id !=$reply->user_id;
+        // })
+        ->each->notify($reply);
         // foreach($this->subscriptions as $subscription)
         // {
         //     if($subscription->user_id != $reply->user_id)
@@ -72,8 +80,6 @@ class Thread extends Model
         //         $subscription->user->notify(new ThreadWasUpdated($this, $reply));
         //     }
         // }
-
-        return $reply;
     }
 
     public function channel()
