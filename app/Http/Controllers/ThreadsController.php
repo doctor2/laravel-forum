@@ -107,6 +107,11 @@ class ThreadsController extends Controller
      */
     public function show($channelId, Thread $thread)
     {
+        if(auth()->check())
+        {
+            auth()->user()->read($thread);
+        }
+
         // Thread::withCount('replies')->first();
         return view('threads.show', compact('thread'));
         // return view('threads.show', [
