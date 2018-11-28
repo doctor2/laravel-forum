@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Thread;
-use App\Reply;
 use App\Inspections\Spam;
+use App\Reply;
+use App\Thread;
+use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
@@ -20,25 +20,30 @@ class RepliesController extends Controller
         return $thread->replies()->paginate(5);
     }
 
-    public function store($channelId, Thread $thread, Spam $spam)
+    public function store($channelId, Thread $thread)
     {
-        $this->validate(request(), [
-            'body' => 'required',
+        try {
+            $this->validateReply();
+
+            $reply = $thread->addReply([
+                'body' => request('body'),
+                'user_id' => auth()->id(),
             ]);
-        
-        $spam->detect(request('body'));
-
-        $reply = $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id(),
-        ]);
-
-        if(request()->expectsJson())
-        {
-            return $reply->load('owner');
+        } catch (\Exception $e) {
+            return response(
+                'Sorry, your reply could not be saved at this time.',
+                422
+            );
         }
 
-        return back()->with('flash', 'Your reply has been saved!');
+        return $reply->load('owner');
+
+        // if(request()->expectsJson())
+        // {
+        //     return $reply->load('owner');
+        // }
+
+        // return back()->with('flash', 'Your reply has been saved!');
     }
 
     public function destroy(Reply $reply)
@@ -50,9 +55,8 @@ class RepliesController extends Controller
         $this->authorize('update', $reply);
 
         $reply->delete();
-        
-        if(request()->expectsJson())
-        {
+
+        if (request()->expectsJson()) {
             return response(['status' => 'Reply deleted']);
         }
 
@@ -63,7 +67,25 @@ class RepliesController extends Controller
     {
         $this->authorize('update', $reply);
 
-        $reply->update(request(['body']));
+        try {
+            $this->validateReply();
+
+            $reply->update(request(['body']));
+        } catch (\Exception $e) {
+            return response(
+                'Sorry, your reply could not be saved at this time.',
+                422
+            );
+        }
+    }
+
+    public function validateReply()
+    {
+        $this->validate(request(), [
+            'body' => 'required',
+        ]);
+
+        resolve(Spam::class)->detect(request('body'));
     }
 
 }

@@ -1,9 +1,9 @@
 <template>
     <div class="alert alert-flash"
+         :class="'alert-'+level"
          role="alert"
          v-show="show"
-         >
-      <strong>Success!!</strong>   {{body}}
+         v-text="body">
     </div>
 </template>
 
@@ -11,25 +11,30 @@
     export default {
         props: ['message'],
 
-     data(){
-         return{
-             body:'',
-             show: false
-         }
-     },
+        data() {
+            return {
+                body: this.message,
+                level: 'success',
+                show: false
+            }
+        },
 
-     created(){
-         if (this.message) {
-                this.flash(this.message);
+        created() {
+            if (this.message) {
+                this.flash();
             }
 
             window.events.$on(
-                'flash', message => this.flash(message)
+                'flash', data => this.flash(data)
             );
-     },
-       methods: {
-            flash(message) {
-                this.body = message;
+        },
+
+        methods: {
+            flash(data) {
+                if (data) {
+                    this.body = data.message;
+                    this.level = data.level;
+                }
 
                 this.show = true;
 
@@ -42,7 +47,7 @@
                 }, 3000);
             }
         }
-    }
+    };
 </script>
 
 <style>
