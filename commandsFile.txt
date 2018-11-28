@@ -56,6 +56,8 @@ php artisan make:controller UserNotificationsController
 
 php artisan make:test SpamTest --unit
 
+php artisan make:rule SpamFree
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
