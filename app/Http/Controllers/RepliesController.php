@@ -6,6 +6,7 @@ use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Gate;
+use App\Http\Requests\CreatePostRequest;
 
 class RepliesController extends Controller
 {
@@ -20,37 +21,43 @@ class RepliesController extends Controller
         return $thread->replies()->paginate(5);
     }
 
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreatePostRequest $request)
     {
-        if(Gate::denies('create', new Reply)){
-            return response(
-                'You are posting too frequently. Please take a brake!', 422
-            );
-        }
-
-        try {
-            // $this->authorize('create', new Reply);
-            $this->validate(request(), ['body' => 'required|spamfree']);
-
-            $reply = $thread->addReply([
+        
+        return $reply = $thread->addReply([
                 'body' => request('body'),
                 'user_id' => auth()->id(),
-            ]);
-        } catch (\Exception $e) {
-            return response(
-                'Sorry, your reply could not be saved at this time.',
-                422
-            );
-        }
+            ])->load('owner');
 
-        return $reply->load('owner');
-
-        // if(request()->expectsJson())
-        // {
-        //     return $reply->load('owner');
+        // if(Gate::denies('create', new Reply)){
+        //     return response(
+        //         'You are posting too frequently. Please take a brake!', 429
+        //     );
         // }
 
-        // return back()->with('flash', 'Your reply has been saved!');
+        // try {
+        //     // $this->authorize('create', new Reply);
+        //     $this->validate(request(), ['body' => 'required|spamfree']);
+
+        //     $reply = $thread->addReply([
+        //         'body' => request('body'),
+        //         'user_id' => auth()->id(),
+        //     ]);
+        // } catch (\Exception $e) {
+        //     return response(
+        //         'Sorry, your reply could not be saved at this time.',
+        //         422
+        //     );
+        // }
+
+        // return $reply->load('owner');
+
+        // // if(request()->expectsJson())
+        // // {
+        // //     return $reply->load('owner');
+        // // }
+
+        // // return back()->with('flash', 'Your reply has been saved!');
     }
 
     public function destroy(Reply $reply)

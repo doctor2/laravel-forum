@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,18 @@ class Handler extends ExceptionHandler
     {
         // if(app()->environment() === 'testing')
         //     throw $exception;
+
+        if($exception instanceof ValidationException){
+            if($request->expectsJson())
+            {
+                return response('Sorry, validation faild.', 422);
+            }
+        }
+
+        if($exception instanceof ThrottleException){
+            return response('You are posting too frequently', 429);
+        }
+        
         return parent::render($request, $exception);
     }
 }

@@ -60,6 +60,8 @@ php artisan make:rule SpamFree
 
 php artisan make:test UserTest --unit
 
+php artisan make:request CreatePostForm
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
