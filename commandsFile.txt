@@ -58,6 +58,8 @@ php artisan make:test SpamTest --unit
 
 php artisan make:rule SpamFree
 
+php artisan make:test UserTest --unit
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
