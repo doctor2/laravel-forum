@@ -62,6 +62,10 @@ php artisan make:test UserTest --unit
 
 php artisan make:request CreatePostForm
 
+php artisan make:test MentionUserTest
+
+php artisan make:notification YouWereMentioned
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
