@@ -66,6 +66,8 @@ php artisan make:test MentionUserTest
 
 php artisan make:notification YouWereMentioned
 
+php artisan event:generate  (прописав класс события и слушателя в провайдер)
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
