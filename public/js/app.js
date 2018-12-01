@@ -64982,7 +64982,7 @@ var render = function() {
           ])
         : _c("div", {
             staticClass: "card-body",
-            domProps: { textContent: _vm._s(_vm.body) }
+            domProps: { innerHTML: _vm._s(_vm.body) }
           })
     ]),
     _vm._v(" "),
