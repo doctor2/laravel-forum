@@ -6,6 +6,7 @@ use App\Events\ThreadReceivedNewReply;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\YouWereMentioned;
+use App\User;
 
 class NotifyMentionedUsers
 {
@@ -19,13 +20,18 @@ class NotifyMentionedUsers
     {
         $names = $event->reply->mentionedUsers();
 
-        foreach($names as $name)
-        {
-            $user = \App\User::whereName($name)->first();
-
-            if($user){
+        User::whereIn('name', $event->reply->mentionedUsers())
+            ->get()
+            ->each(function($user) use ($event){
                 $user->notify(new YouWereMentioned($event->reply));
-            }
-        }
+            });
+        // foreach($names as $name)
+        // {
+        //     $user = \App\User::whereName($name)->first();
+
+        //     if($user){
+        //         $user->notify(new YouWereMentioned($event->reply));
+        //     }
+        // }
     }
 }
