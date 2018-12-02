@@ -68,6 +68,13 @@ php artisan make:notification YouWereMentioned
 
 php artisan event:generate  (прописав класс события и слушателя в провайдер)
 
+npm install at.js --save
+npm install jquery.caret --save  (для )
+mkdir public/css/vendor
+cp node_modules/at.js/dist/css/jquery.atwho.css ./public/css/vendor/
+
+php artisan make:controller Api/UsersController
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
