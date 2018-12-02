@@ -6,7 +6,8 @@
         <div class="col-md-8 col-md-offset-2">
 
                 <div class="page-header">
-                        <h1>
+                    <avatar-form :user="{{$profileUser}}"></avatar-form>
+                        {{-- <h1>
                                 {{$profileUser->name}}
                             <small>Since {{$profileUser->created_at->diffForHumans()}}</small>
 
@@ -19,7 +20,7 @@
                             </form>
                         @endcan
 
-                        <img src="{{  $profileUser->avatar()}}" width="200">
+                        <img src="{{  $profileUser->avatar()}}" width="200"> --}}
                     </div>
                 
                     @forelse ($activities as $date => $activity)
