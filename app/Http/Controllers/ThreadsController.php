@@ -46,15 +46,17 @@ class ThreadsController extends Controller
 
         // $threads = $threads->get();
 
-        $threads = Thread:://with('channel')->
-        latest()->filter($filter);
+        // $threads = Thread:://with('channel')->
+        // latest()->filter($filter);
 
-        if($channel->exists)
-        {
-            $threads->where('channel_id', $channel->id);
-        }
+        // if($channel->exists)
+        // {
+        //     $threads->where('channel_id', $channel->id);
+        // }
 
-        $threads = $threads->get();
+        // $threads = $threads->get();
+
+        $threads = $this->getThreads($channel, $filter);
 
         if(request()->wantsJson())
         {
@@ -177,5 +179,18 @@ class ThreadsController extends Controller
         }
 
         return redirect('/threads');
+    }
+
+    public function getThreads($channel, $filter)
+    {
+        $threads = Thread::latest()
+            ->filter($filter);
+
+        if($channel->exists)
+        {
+            $threads->where('channel_id', $channel->id);
+        }
+
+        return $threads->paginate(5);
     }
 }
