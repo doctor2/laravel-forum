@@ -8,8 +8,18 @@
                 <div class="page-header">
                         <h1>
                                 {{$profileUser->name}}
-                        <small>Since {{$profileUser->created_at->diffForHumans()}}</small>
+                            <small>Since {{$profileUser->created_at->diffForHumans()}}</small>
+
                         </h1>
+                        @can('update', $profileUser)
+                            <form method="POST" action="{{route('avatar', $profileUser)}}" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="avatar" id="">
+                                <button type="submit" class="btn btn-primary">Add avatar</button>
+                            </form>
+                        @endcan
+
+                        <img src="{{  $profileUser->avatar()}}" width="200">
                     </div>
                 
                     @forelse ($activities as $date => $activity)

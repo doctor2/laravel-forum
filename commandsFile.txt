@@ -75,6 +75,14 @@ cp node_modules/at.js/dist/css/jquery.atwho.css ./public/css/vendor/
 
 php artisan make:controller Api/UsersController
 
+php artisan make:test AddAvatarTest
+
+php artisan make:controller "Api\UserAvatarController"
+
+php artisan make:policy UserPolicy
+
+php artisan storage:link
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
