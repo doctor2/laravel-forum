@@ -2,23 +2,19 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Activity;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateThreadsTest extends TestCase
 {
 
     use RefreshDatabase;
 
-     /**
-     @test
-     */
-    function guest_may_not_create_threads()
+    /** @test */
+    public function guest_may_not_create_threads()
     {
         $this->withExceptionHandling();
-
 
         $this->get('/threads/create')
             ->assertRedirect('/login');
@@ -48,11 +44,8 @@ class CreateThreadsTest extends TestCase
     //         ->assertRedirect('/login');
     // }
 
-
-    /**
-     @test
-     */
-    public function an_anthenticated_user_can_creata_new_forum_threads()
+    /** @test */
+    public function a_user_can_creata_new_forum_threads()
     {
         // $this->actingAs(create('App\User'));
         $this->signIn();
@@ -67,19 +60,15 @@ class CreateThreadsTest extends TestCase
             ->assertSee($thread->body);
     }
 
-    /**
-     @test
-     */
-    function a_thread_requires_a_title()
+    /** @test */
+    public function a_thread_requires_a_title()
     {
         $this->publishThread(['title' => null])
             ->assertSessionHasErrors('title');
     }
 
-      /**
-     @test
-     */
-    function a_thread_requires_a_valid_channel()
+    /** @test */
+    public function a_thread_requires_a_valid_channel()
     {
         factory('App\Channel', 2)->create();
 
@@ -106,9 +95,15 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    function authenticated_users_must_first_confirm_their_email_address_before_creating_threads()
+    public function new_users_must_first_confirm_their_email_address_before_creating_threads()
     {
-        $this->publishThread()
+        $user = factory('App\User')->states('unconfirmed')->create();
+
+        $this->signIn($user);
+
+        $thread = make('App\Thread');
+
+        $this->post('/threads', $thread->toArray())
             ->assertRedirect('/threads')
             ->assertSessionHas('flash', 'You must first confirm your email address.');
     }
@@ -125,39 +120,38 @@ class CreateThreadsTest extends TestCase
 
         $response->assertStatus(204);
 
-        $this->assertDatabaseMissing('threads', [ 'id' => $thread->id]);
-        $this->assertDatabaseMissing('replies', [ 'id' => $reply->id]);
-       
-        $this->assertDatabaseMissing('activities', [ 
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+
+        $this->assertDatabaseMissing('activities', [
             'subject_id' => $thread->id,
             'subject_type' => get_class($thread),
-            ]);
+        ]);
 
-        $this->assertDatabaseMissing('activities', [ 
+        $this->assertDatabaseMissing('activities', [
             'subject_id' => $reply->id,
             'subject_type' => get_class($reply),
-            ]);
-        
+        ]);
+
         $this->assertEquals(0, Activity::count());
     }
 
-        // /** @test */
-        // public function a_thread_can_be_deleted()
-        // {
-        //     $this->signIn();
-    
-        //     $thread = create('App\Thread');
-        //     $reply = create('App\Reply', ['thread_id' => $thread->id]);
-    
-        //     $response = $this->json('DELETE', $thread->path());
-    
-        //     $response->assertStatus(204);
-    
-        //     $this->assertDatabaseMissing('threads', [ 'id' => $thread->id]);
-        //     $this->assertDatabaseMissing('replies', [ 'id' => $reply->id]);
-        // }
-        
-    
+    // /** @test */
+    // public function a_thread_can_be_deleted()
+    // {
+    //     $this->signIn();
+
+    //     $thread = create('App\Thread');
+    //     $reply = create('App\Reply', ['thread_id' => $thread->id]);
+
+    //     $response = $this->json('DELETE', $thread->path());
+
+    //     $response->assertStatus(204);
+
+    //     $this->assertDatabaseMissing('threads', [ 'id' => $thread->id]);
+    //     $this->assertDatabaseMissing('replies', [ 'id' => $reply->id]);
+    // }
+
     public function publishThread($overrides = [])
     {
         $this->withExceptionHandling()->signIn();
