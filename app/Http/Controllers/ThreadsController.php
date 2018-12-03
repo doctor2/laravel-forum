@@ -120,7 +120,8 @@ class ThreadsController extends Controller
 
         $trending->push($thread);
 
-        $thread->visits()->record();
+        $thread->increment('visits');
+        // $thread->visits()->record();
 
         // Thread::withCount('replies')->first();
         return view('threads.show', compact('thread'));
