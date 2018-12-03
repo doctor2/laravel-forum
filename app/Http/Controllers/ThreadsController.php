@@ -117,7 +117,10 @@ class ThreadsController extends Controller
         {
             auth()->user()->read($thread);
         }
+
         $trending->push($thread);
+
+        $thread->recordVisit();
 
         // Thread::withCount('replies')->first();
         return view('threads.show', compact('thread'));
