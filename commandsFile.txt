@@ -83,6 +83,11 @@ php artisan make:policy UserPolicy
 
 php artisan storage:link
 
+composer require predis/predis (then install redis)
+
+php artisan make:test TrendingThreadsTest
+
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')
