@@ -87,6 +87,11 @@ composer require predis/predis (then install redis)
 
 php artisan make:test TrendingThreadsTest
 
+php artisan make:middleware RedirectIfEmailNotConfirmed
+
+php artisan make:mail PleaseConfirmYourEmail --markdown="emails.confirm-email"
+
+php artisan make:controller "Api\RegisterConfirmationController"
 
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
