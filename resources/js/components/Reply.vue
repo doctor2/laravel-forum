@@ -3,7 +3,7 @@
         <div  class="card-header">
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profile/'+data.owner.name" v-text="data.owner.name">
+                    <a :href="'/profiles/'+data.owner.name" v-text="data.owner.name">
                     </a> said <span v-text="ago"></span>
                 </h5>
                 <div>

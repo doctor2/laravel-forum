@@ -37,7 +37,7 @@ class ParticipateInForumTest extends TestCase
         $user = factory('App\User')->create();
         $thread = factory('App\Thread')->create();
 
-        $this->post('/threads/some-channel/1/replies', []);
+        $this->post('/threads/some-channel/' . $thread->slug . '/replies', []);
     }
 
     /**  @test */
