@@ -34,11 +34,11 @@
         </div>
         <!-- @can('update', $reply) -->
         <div class="card-footer level">
-            <div  v-if="canUpdate">
+            <div  v-if="authorize('updateReply', reply)">
                 <button @click="editing=true" class="btn btn-xs mr-1">Edit</button>
                 <button @click="destroy" class="btn btn-danger btn-xs mr-1">Delete</button>
             </div>
-            
+
             <button class="btn btn-default btn-xs ml-a" @click="markBestReply" v-show="!isBest">Best Reply?</button>
 
             <!-- {{-- <form method="POST" action="/replies/{{$reply->id}}">
@@ -68,19 +68,20 @@ export default {
             id: this.data.id,
             body: this.data.body,
             isBest: false,
+            reply: this.data
         }
     },
     computed:{
         ago(){
             return moment(this.data.created_at).fromNow()+ '...';
         },
-        signedIn(){
-            return window.App.signedIn;
-        },
-        canUpdate(){
-            return this.authorize(user => this.data.user_id == user.id);
-            // return window.App.user.id == this.data.user_id;
-        }
+        // signedIn(){
+        //     return window.App.signedIn;
+        // },
+        // canUpdate(){
+        //     return this.authorize(user => this.data.user_id == user.id);
+        //     // return window.App.user.id == this.data.user_id;
+        // }
     },
     methods:{
         update(){
