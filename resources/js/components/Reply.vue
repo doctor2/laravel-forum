@@ -1,5 +1,5 @@
 <template>
-    <div :id="'reply-'+id">
+    <div :id="'reply-'+id" class="card" :class="isBest ? 'card-success' : ''">
         <div  class="card-header">
             <div class="level">
                 <h5 class="flex">
@@ -19,33 +19,37 @@
             </div>
         </div>
 
-        <div class="card">
-            <div v-if="editing">
-                <form @submit.prevent="update">
-                    <div class="form-group">
-                        <textarea class="form-control" v-model="body" required></textarea>
-                    </div>
-                    <button class="btn btn-xs btn-primary" >Update</button>
-                    <button class="btn btn-xs btn-link" @click="editing=false" type="button">Cancel</button>
-                </form>
-            </div>
-            <div v-else class="card-body" v-html="body">
-                <!-- {{-- {{$reply->body}} --}} -->
-            </div>
+        
+        <div v-if="editing">
+            <form @submit.prevent="update">
+                <div class="form-group">
+                    <textarea class="form-control" v-model="body" required></textarea>
+                </div>
+                <button class="btn btn-xs btn-primary" >Update</button>
+                <button class="btn btn-xs btn-link" @click="editing=false" type="button">Cancel</button>
+            </form>
+        </div>
+        <div v-else class="card-body" v-html="body">
+            <!-- {{-- {{$reply->body}} --}} -->
         </div>
         <!-- @can('update', $reply) -->
-            <div class="card-footer level" v-if="canUpdate">
-                <button type="submit" @click="editing=true" class="btn btn-xs">Edit</button>
-                <button type="submit" @click="destroy" class="btn btn-danger btn-xs">Delete</button>
-
-                <!-- {{-- <form method="POST" action="/replies/{{$reply->id}}">
-
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                </form> --}} -->
+        <div class="card-footer level">
+            <div  v-if="canUpdate">
+                <button @click="editing=true" class="btn btn-xs mr-1">Edit</button>
+                <button @click="destroy" class="btn btn-danger btn-xs mr-1">Delete</button>
             </div>
-        <!-- @endcan -->
+            
+            <button class="btn btn-default btn-xs ml-a" @click="markBestReply" v-show="!isBest">Best Reply?</button>
+
+            <!-- {{-- <form method="POST" action="/replies/{{$reply->id}}">
+
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+            </form> --}} -->
+        </div>
+    <!-- @endcan -->
+    
     </div>
 
 </template>
@@ -62,7 +66,8 @@ export default {
         return {
             editing: false,
             id: this.data.id,
-            body: this.data.body
+            body: this.data.body,
+            isBest: false,
         }
     },
     computed:{
@@ -95,6 +100,10 @@ export default {
             // $(this.$el).fadeOut(300, ()=>{
             //     flash('Your reply has been  deleted!');
             // })
+        },
+        markBestReply(){
+            this.isBest = true;
+
         }
     }
 }

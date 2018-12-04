@@ -36,6 +36,9 @@ body{
 .flex{
     flex:1;
 }
+.mr-1{margin-right: 1em;}
+.ml-a{margin-left:auto; }
+.card-success{background-color: greenyellow;}
 [v-cloak]{display: none}
 </style>
 <body >
