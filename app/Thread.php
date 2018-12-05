@@ -162,6 +162,11 @@ class Thread extends Model
         $this->update(['best_reply_id' =>  $reply->id ]);
     }
 
+    public function lock()
+    {
+        $this->update(['locked' => true]);
+    }
+
     public function incrementSlug($slug)
     {
         // $max = static::whereTitle($this->title)->latest('id')->value('slug');
