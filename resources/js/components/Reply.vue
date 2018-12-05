@@ -62,7 +62,7 @@ export default {
     props:['reply'],
 
     components:{ Favorite},
-    reply(){
+    data(){
         return {
             editing: false,
             id: this.reply.id,

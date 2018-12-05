@@ -14,7 +14,7 @@ class LockThreadsTest extends TestCase
   function non_administrators_may_not_lock_threads()
   {
       $this->withExceptionHandling();
-      
+
       $this->signIn();
 
       $thread = create('App\Thread', ['user_id' => auth()->id()]);
@@ -37,14 +37,27 @@ class LockThreadsTest extends TestCase
 
   }
 
+    /** @test */
+    function administrators_can_unlock_threads()
+    {
+        $this->signIn(factory('App\User')->states('administrator')->create());
+  
+        $thread = create('App\Thread', ['user_id' => auth()->id(), 'locked' => true]);
+  
+        $this->assertTrue($thread->locked);
+
+        $this->delete(route('locked-threads.destore', $thread));
+  
+        $this->assertFalse($thread->fresh()->locked);
+  
+    }
+
   /** @test */
   function once_locked_a_thread_may_not_receive_new_replies()
   {
       $this->signIn();
 
-      $thread = create('App\Thread');
-
-      $thread->lock();
+      $thread = create('App\Thread', ['locked' => true]);
 
       $this->post($thread->path() . '/replies', [
           'body' => 'Foobar',
