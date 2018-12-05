@@ -95,6 +95,10 @@ php artisan make:controller "Api\RegisterConfirmationController"
 
 php artisan make:middleware Administrator
 
+composer require kitetail/zttp
+
+php artisan make:rule Recaptcha
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')

@@ -7,6 +7,7 @@ use App\Filters\ThreadFilters;
 use App\Channel;
 use Illuminate\Http\Request;
 use App\Trending;
+use App\Rules\Recaptcha;
 
 class ThreadsController extends Controller
 {
@@ -87,13 +88,14 @@ class ThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Recaptcha $recaptcha)
     {
 
         $this->validate($request, [
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
-            'channel_id' => 'required|exists:channels,id'
+            'channel_id' => 'required|exists:channels,id',
+            'g-recaptcha-response' => ['required', $recaptcha],
         ]);
 
         $thread = Thread::create([
