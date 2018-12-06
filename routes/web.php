@@ -23,6 +23,7 @@ Route::get('/threads/{channel}', 'ThreadsController@index');
 
 Route::post('/threads', 'ThreadsController@store')->middleware(['auth', 'must-be-confirmed']);
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
+Route::patch('/threads/{channel}/{thread}', 'ThreadsController@update');
 
 Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy');
 

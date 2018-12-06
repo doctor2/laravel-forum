@@ -9,31 +9,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class="level">
-                    <img src="{{ $thread->creator->avatar_path }}" alt="{{$thread->creator->name}}" width="25" height="25" class="mr-1">
 
-                        <span class="flex">
-                            <a href="{{route('profile', $thread->creator)}}">{{$thread->creator->name}}</a> posted: 
-                            {{$thread->title}}
-                        </span>
-                        @can ('update', $thread)
-                            <form action="{{$thread->path()}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-link">Delete thread</button>
-                            </form>
-                        @endcan
-                      
-                    </div>
-                   
-                </div>
-
-                <div class="card-body">
-                    {{$thread->body}}
-                </div>
-            </div>
+         @include('threads._question')
 
         <replies @added="repliesCount++" @removed="repliesCount--"></replies>
             {{-- @foreach ($replies as $reply)

@@ -169,6 +169,7 @@ class CreateThreadsTest extends TestCase
             ->assertSessionHas('flash', 'You must first confirm your email address.');
     }
 
+
     /** @test */
     public function authorized_users_can_delete_threads()
     {
