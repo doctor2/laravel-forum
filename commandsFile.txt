@@ -106,6 +106,8 @@ php artisan scout:import 'App\Thread'
 
 npm install vue-instantsearch
 
+npm install trix (https://community.algolia.com/vue-instantsearch/components/refinement-list.html)
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')

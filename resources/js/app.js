@@ -12,6 +12,8 @@ import InstantSearch from 'vue-instantsearch';
 window.Vue = require('vue');
 
 window.Vue.use(InstantSearch);
+
+window.Vue.config.ignoredElements = ['trix-editor']
 // window.Vue.prototype.authorize = function(handler){
 
 //     let user = window.App.user;
@@ -51,6 +53,7 @@ Vue.component('thread-view', require('./pages/Thread.vue'));
 Vue.component('paginator', require('./components/Paginator.vue'));
 Vue.component('user-notifications', require('./components/UserNotifications.vue'));
 Vue.component('avatar-form', require('./components/AvatarForm.vue'));
+Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 
 const app = new Vue({
     el: '#app'

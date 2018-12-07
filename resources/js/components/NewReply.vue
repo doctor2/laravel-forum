@@ -2,13 +2,15 @@
     <div>
         <div v-if="signedIn">
             <div class="form-group">
-                <textarea name="body" 
+                <wysiwyg name="body" v-model="body"  placeholder="Have something to say?" :shouldClear="completed"></wysiwyg>
+
+                <!-- <textarea name="body" 
                 id="body"
                 class="form-control"
                     placeholder="Say?" 
                     rows="5" 
                     required
-                    v-model="body"></textarea>
+                    v-model="body"></textarea> -->
             </div>
             <button type="submit" class="btn btn-default" 
             @click="addReply">Post</button>
@@ -27,7 +29,8 @@ import 'at.js';
 export default {
   data() {
     return {
-      body: ""
+      body: "",
+      completed: false
     };
   },
   // computed: {
@@ -55,6 +58,7 @@ export default {
         .post(location.pathname + "/replies", { body: this.body })
         .then(response => {
           this.body = "";
+          this.completed = true;
 
           flash("Your reply has been posed!");
 

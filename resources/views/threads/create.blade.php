@@ -29,7 +29,8 @@
                     </div>
                     <div class="form-group">
                         <label for=""> Body:</label>
-                    <textarea name="body" class="form-control" rows="8">{{old('body')}}</textarea>
+                        <wysiwyg name="body" value="{{old('body')}}"></wysiwyg>
+                        {{-- <textarea name="body" class="form-control" rows="8">{{old('body')}}</textarea> --}}
                     </div>
 
                     {{-- <div class="form-group">
