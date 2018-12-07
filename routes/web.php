@@ -14,9 +14,13 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::view('scan', 'scan');
+
 Route::get('/', 'ThreadsController@index');
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::get('/threads/create', 'ThreadsController@create');  
+Route::get('/threads/search', 'SearchController@show');  
 
 Route::get('/threads/{channel}', 'ThreadsController@index');
 

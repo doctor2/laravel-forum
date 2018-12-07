@@ -99,6 +99,13 @@ composer require kitetail/zttp
 
 php artisan make:rule Recaptcha
 
+composer require laravel/scout
+php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
+composer require algolia/algoliasearch-client-php:^1.27  (https://www.algolia.com/users/sign_in)
+php artisan scout:import 'App\Thread'
+
+npm install vue-instantsearch
+
 после добавляния функций оберток в файл /tests/utilities/functions.php
 composer dump-autoload
 @section('name')

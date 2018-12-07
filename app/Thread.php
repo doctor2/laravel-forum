@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\ThreadWasUpdated;
 use App\Events\ThreadReceivedNewReply;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
 
     use RecordsActivity;
+    // use Searchable;
     
     protected $guarded = [];
 
@@ -164,6 +166,11 @@ class Thread extends Model
     public function markBestReply(Reply $reply)
     {
         $this->update(['best_reply_id' =>  $reply->id ]);
+    }
+
+    public function toSearchableArray()
+    {
+        return $this->toArray() + [ 'path' => $this->path()];
     }
     
     public function incrementSlug($slug)
