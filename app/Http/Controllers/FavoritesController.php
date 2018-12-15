@@ -16,12 +16,6 @@ class FavoritesController extends Controller
 
     public function store(Reply $reply)
     {
-        // \DB::table('favorites')->insert([
-        // Favorite::create([
-        //     'user_id' => auth()->id(),
-        //     'favorited_id' => $reply->id,
-        //     'favorited_type' => get_class($reply)
-        // ]);
         $reply->favorite();
     }
 

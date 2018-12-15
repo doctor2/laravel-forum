@@ -8,7 +8,7 @@ php artisan make:model Reply -mc
 
 vendor/bin/phpunit
 
-php artisan make:authphp artisan make:auth
+php artisan make:auth  php artisan make:auth
 
 php artisan make:test ReplyTest --unit
 

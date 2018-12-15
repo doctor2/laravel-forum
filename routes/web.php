@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::view('scan', 'scan');
 
 Route::get('/', 'ThreadsController@index');

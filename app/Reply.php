@@ -24,9 +24,6 @@ class Reply extends Model
 
 
         static::deleted(function($reply){
-            // if($reply->isBest()){
-            //     $reply->thread->update(['best_reply_id' => null]);
-            // }
             $reply->thread->decrement('replies_count');
         });
     }
@@ -41,12 +38,6 @@ class Reply extends Model
         return $this->belongsTo(Thread::class);
     }
 
-    // public function isFavorited()
-    // {
-    //     // return $this->favorites()->where('user_id', auth()->id())->exists();
-    //     return !!$this->favorites->where('user_id', auth()->id())->count();
-    // }
-
     public function path()
     {
         return $this->thread->path() . "#reply-{$this->id}";
@@ -59,7 +50,6 @@ class Reply extends Model
 
     public function mentionedUsers()
     {
-        // preg_match_all('/\@([^\s\.]+)/', $this->body, $matches);
         preg_match_all('/\@([\w\-]+)/', $this->body, $matches);
 
         return $matches[1];

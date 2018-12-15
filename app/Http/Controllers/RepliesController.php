@@ -35,44 +35,10 @@ class RepliesController extends Controller
         ]);
 
         return $reply->load('owner');
-
-        // if(Gate::denies('create', new Reply)){
-        //     return response(
-        //         'You are posting too frequently. Please take a brake!', 429
-        //     );
-        // }
-
-        // try {
-        //     // $this->authorize('create', new Reply);
-        //     $this->validate(request(), ['body' => 'required|spamfree']);
-
-        //     $reply = $thread->addReply([
-        //         'body' => request('body'),
-        //         'user_id' => auth()->id(),
-        //     ]);
-        // } catch (\Exception $e) {
-        //     return response(
-        //         'Sorry, your reply could not be saved at this time.',
-        //         422
-        //     );
-        // }
-
-        // return $reply->load('owner');
-
-        // // if(request()->expectsJson())
-        // // {
-        // //     return $reply->load('owner');
-        // // }
-
-        // // return back()->with('flash', 'Your reply has been saved!');
     }
 
     public function destroy(Reply $reply)
     {
-        // if($reply->user_id != auth()->id())
-        // {
-        //     return response([], 403);
-        // }
         $this->authorize('update', $reply);
 
         $reply->delete();
@@ -91,24 +57,6 @@ class RepliesController extends Controller
         request()->validate(['body' => 'required|spamfree']);
 
         $reply->update(request(['body']));
-
-        // try {
-        //     $this->validate(request(), ['body' => 'required|spamfree']);
-
-        //     $reply->update(request(['body']));
-        // } catch (\Exception $e) {
-        //     return response(
-        //         'Sorry, your reply could not be saved at this time.',
-        //         422
-        //     );
-        // }
     }
-
-    // public function validateReply()
-    // {
-    //     $this->validate(request(), ['body' => 'required']);
-
-    //     resolve(Spam::class)->detect(request('body'));
-    // }
 
 }

@@ -128,14 +128,8 @@ class ThreadsController extends Controller
         $trending->push($thread);
 
         $thread->increment('visits');
-        // $thread->visits()->record();
 
-        // Thread::withCount('replies')->first();
         return view('threads.show', compact('thread'));
-        // return view('threads.show', [
-        //     'thread' => $thread,
-        //     'replies'=> $thread->replies()->paginate(5)
-        // ]);
     }
 
     public function update($channel, Thread $thread)
@@ -160,22 +154,6 @@ class ThreadsController extends Controller
     {
         $this->authorize('update', $thread);
 
-        // if($thread->user_id != auth()->id())
-        // {
-            // if(request()->wantsJson())
-            // {
-            //     return response(['status' => 'Permission defined', 403]);
-            // }
-
-            // return redirect('/login');
-        // }
-
-        // if($thread->user_id != auth()->id())
-        // {
-        //     abort(403, 'You do not have permission to do this.');
-        // }
-
-        // $thread->replies()->delete();
         $thread->delete();
 
         if(request()->wantsJson())

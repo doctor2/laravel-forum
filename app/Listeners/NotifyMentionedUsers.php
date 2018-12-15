@@ -25,13 +25,5 @@ class NotifyMentionedUsers
             ->each(function($user) use ($event){
                 $user->notify(new YouWereMentioned($event->reply));
             });
-        // foreach($names as $name)
-        // {
-        //     $user = \App\User::whereName($name)->first();
-
-        //     if($user){
-        //         $user->notify(new YouWereMentioned($event->reply));
-        //     }
-        // }
     }
 }
